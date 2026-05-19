@@ -5,8 +5,8 @@ from openai import OpenAI
 import chromadb
 from chromadb.utils import embedding_functions
 
-# 从环境变量读取密钥（绝对安全）
-DEEPSEEK_API_KEY = os.getenv("DEEPSEEK_API_KEY")
+# 从 Streamlit Secrets 或环境变量读取密钥
+DEEPSEEK_API_KEY = st.secrets.get("DEEPSEEK_API_KEY") or os.getenv("DEEPSEEK_API_KEY")
 
 st.set_page_config(page_title="智能文档问答", page_icon="📄")
 st.title("📄 文档智能问答系统")
