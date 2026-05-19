@@ -51,7 +51,7 @@ docker run -p 8501:8501 -e DEEPSEEK_API_KEY="你的密钥" pdf-qa-app
 | 组件 | 用途 |
 |------|------|
 | Streamlit | Web 界面 |
-| pdfplumber | PDF 文本提取 |
+| pypdf | PDF 文本提取 |
 | ChromaDB | 向量存储与相似度检索 |
 | sentence-transformers | 文本嵌入模型 |
 | DeepSeek API | 大语言模型生成回答 |

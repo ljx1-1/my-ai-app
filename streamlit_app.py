@@ -1,6 +1,6 @@
 import os
 import streamlit as st
-import pdfplumber
+from pypdf import PdfReader
 from openai import OpenAI
 import chromadb
 from chromadb.utils import embedding_functions
@@ -37,12 +37,12 @@ uploaded_file = st.file_uploader("上传 PDF 文件", type="pdf")
 
 if uploaded_file is not None:
     # 读取 PDF 全部文本
-    with pdfplumber.open(uploaded_file) as pdf:
-        full_text = ""
-        for page in pdf.pages:
-            page_text = page.extract_text()
-            if page_text:
-                full_text += page_text + "\n"
+    pdf = PdfReader(uploaded_file)
+    full_text = ""
+    for page in pdf.pages:
+        page_text = page.extract_text()
+        if page_text:
+            full_text += page_text + "\n"
 
     if not full_text.strip():
         st.error("这个 PDF 好像没有文字（可能是扫描件），换个文档试试。")
