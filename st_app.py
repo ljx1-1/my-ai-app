@@ -2,7 +2,7 @@ import os
 import streamlit as st
 from openai import OpenAI
 
-DEEPSEEK_API_KEY = os.getenv("DEEPSEEK_API_KEY")
+DEEPSEEK_API_KEY = st.secrets.get("DEEPSEEK_API_KEY") or os.getenv("DEEPSEEK_API_KEY")
 
 client = OpenAI(
     api_key=DEEPSEEK_API_KEY,

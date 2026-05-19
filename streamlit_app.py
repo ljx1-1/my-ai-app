@@ -98,28 +98,33 @@ if uploaded_file is not None:
                 st.warning("没有找到相关段落，请换个问法试试。")
             else:
                 with st.spinner("AI 正在结合原文生成回答..."):
-                    response = client.chat.completions.create(
-                        model="deepseek-chat",
-                        messages=[
-                            {
-                                "role": "system",
-                                "content": "你是一个严谨的文档助手。请严格根据下面提供的文档片段回答问题。如果片段中没有明确信息，就说‘文档中未提及’。禁止编造。\n\n【文档片段】\n" + context
-                            },
-                            {
-                                "role": "user",
-                                "content": query
-                            }
-                        ],
-                        stream=False,
-                        temperature=0.1
-                    )
-                    answer = response.choices[0].message.content
+                    try:
+                        response = client.chat.completions.create(
+                            model="deepseek-chat",
+                            messages=[
+                                {
+                                    "role": "system",
+                                    "content": "你是一个严谨的文档助手。请严格根据下面提供的文档片段回答问题。如果片段中没有明确信息，就说’文档中未提及’。禁止编造。\n\n【文档片段】\n" + context
+                                },
+                                {
+                                    "role": "user",
+                                    "content": query
+                                }
+                            ],
+                            stream=False,
+                            temperature=0.1
+                        )
+                        answer = response.choices[0].message.content
+                    except Exception as e:
+                        st.error(f"AI 接口调用失败：{e}")
+                        answer = None
 
-                st.markdown("### 🤖 AI 回答")
-                st.success(answer)
+                if answer:
+                    st.markdown("### 🤖 AI 回答")
+                    st.success(answer)
 
-                with st.expander("🔍 查看用来回答的原文片段（共3段）"):
-                    for i, doc in enumerate(retrieved_docs):
-                        st.markdown(f"**片段 {i+1}**: {doc}")
+                    with st.expander("🔍 查看用来回答的原文片段（共3段）"):
+                        for i, doc in enumerate(retrieved_docs):
+                            st.markdown(f"**片段 {i+1}**: {doc}")
 else:
     st.info("👆 上传一份 PDF，就可以开始提问啦。")
