@@ -12,5 +12,8 @@ pypdf==5.4.0
 # 向量数据库，存储文档片段
 chromadb==0.4.24
 
+# 固定 NumPy 1.x，chromadb 0.4.x 不兼容 NumPy 2.0
+numpy==1.26.4
+
 # Chroma 默认嵌入模型 all-MiniLM-L6-v2 的运行依赖
 sentence-transformers==2.5.1
