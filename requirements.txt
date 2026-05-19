@@ -6,7 +6,7 @@ wheel
 pillow==10.4.0
 
 # Streamlit 前端框架
-streamlit==1.32.2
+streamlit==1.44.1
 
 # 调用 DeepSeek API
 openai==1.14.3
