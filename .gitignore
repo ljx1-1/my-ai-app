@@ -1,0 +1,9 @@
+# ChromaDB 向量数据库（本地运行时自动生成）
+chroma_db/
+
+# Python
+__pycache__/
+*.pyc
+
+# 环境变量（含密钥，绝不能提交）
+.env

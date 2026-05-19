@@ -1,9 +1,11 @@
+import os
 import streamlit as st
 from openai import OpenAI
 
-# 替换！
+DEEPSEEK_API_KEY = os.getenv("DEEPSEEK_API_KEY")
+
 client = OpenAI(
-    api_key="sk-69d3c258f03a4ae99d8bea3fc8eeda7a", 
+    api_key=DEEPSEEK_API_KEY,
     base_url="https://api.deepseek.com"
 )
 

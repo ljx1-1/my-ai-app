@@ -1,12 +1,12 @@
+import os
 import streamlit as st
 import pdfplumber
 from openai import OpenAI
 import chromadb
 from chromadb.utils import embedding_functions
 
-# ========== 配置区 ==========
-DEEPSEEK_API_KEY = "sk-69d3c258f03a4ae99d8bea3fc8eeda7a"  # 替换成你自己的钥匙
-# ============================
+# 从环境变量读取密钥（绝对安全）
+DEEPSEEK_API_KEY = os.getenv("DEEPSEEK_API_KEY")
 
 st.set_page_config(page_title="智能文档问答", page_icon="📄")
 st.title("📄 文档智能问答系统")

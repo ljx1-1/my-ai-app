@@ -1,39 +1,57 @@
-# my-ai-app
+# 智能文档问答系统 (PDF Q&A)
 
-#### 介绍
-{**以下是 Gitee 平台说明，您可以替换此简介**
-Gitee 是 OSCHINA 推出的基于 Git 的代码托管平台（同时支持 SVN）。专为开发者提供稳定、高效、安全的云端软件开发协作平台
-无论是个人、团队、或是企业，都能够用 Gitee 实现代码托管、项目管理、协作开发。企业项目请看 [https://gitee.com/enterprises](https://gitee.com/enterprises)}
+基于 Streamlit + DeepSeek + ChromaDB 的 RAG 文档问答应用。
 
-#### 软件架构
-软件架构说明
+上传一份 PDF（合同、论文、说明书），系统自动提取文本、建立向量索引，你可以直接用自然语言对文档内容提问，AI 会结合原文片段给出回答。
 
+## 功能
 
-#### 安装教程
+- PDF 文本自动提取（支持多页）
+- 文本分块 + 向量化存入 ChromaDB
+- 提问时检索最相关的 3 个原文片段
+- DeepSeek 大模型基于检索片段生成回答（严格不编造）
+- 一键 Docker 部署
 
-1.  xxxx
-2.  xxxx
-3.  xxxx
+## 项目结构
 
-#### 使用说明
+```
+├── streamlit_app.py    # 主应用：文档上传 + 问答
+├── st_app.py        # 小工具：AI 起名
+├── simple_ai.py     # 命令行测试：DeepSeek API 连通性
+├── requirements.txt # Python 依赖
+├── Dockerfile       # Docker 部署配置
+├── chroma_db/       # 向量数据库本地持久化目录
+└── start.sh         # 启动脚本
+```
 
-1.  xxxx
-2.  xxxx
-3.  xxxx
+## 安装与运行
 
-#### 参与贡献
+```bash
+# 1. 安装依赖
+pip install -r requirements.txt
 
-1.  Fork 本仓库
-2.  新建 Feat_xxx 分支
-3.  提交代码
-4.  新建 Pull Request
+# 2. 设置 API 密钥（Windows CMD 用 set，PowerShell 用 $env:）
+export DEEPSEEK_API_KEY="你的DeepSeek密钥"
 
+# 3. 启动应用
+streamlit run streamlit_app.py
+```
 
-#### 特技
+打开浏览器访问 `http://localhost:8501`。
 
-1.  使用 Readme\_XXX.md 来支持不同的语言，例如 Readme\_en.md, Readme\_zh.md
-2.  Gitee 官方博客 [blog.gitee.com](https://blog.gitee.com)
-3.  你可以 [https://gitee.com/explore](https://gitee.com/explore) 这个地址来了解 Gitee 上的优秀开源项目
-4.  [GVP](https://gitee.com/gvp) 全称是 Gitee 最有价值开源项目，是综合评定出的优秀开源项目
-5.  Gitee 官方提供的使用手册 [https://gitee.com/help](https://gitee.com/help)
-6.  Gitee 封面人物是一档用来展示 Gitee 会员风采的栏目 [https://gitee.com/gitee-stars/](https://gitee.com/gitee-stars/)
+## Docker 部署
+
+```bash
+docker build -t pdf-qa-app .
+docker run -p 8501:8501 -e DEEPSEEK_API_KEY="你的密钥" pdf-qa-app
+```
+
+## 技术栈
+
+| 组件 | 用途 |
+|------|------|
+| Streamlit | Web 界面 |
+| pdfplumber | PDF 文本提取 |
+| ChromaDB | 向量存储与相似度检索 |
+| sentence-transformers | 文本嵌入模型 |
+| DeepSeek API | 大语言模型生成回答 |

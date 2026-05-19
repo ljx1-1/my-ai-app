@@ -1,9 +1,11 @@
+import os
 import sys
 from openai import OpenAI
 
-# 1. 先检查钥匙是不是真的换了（如果还是示范文字，立刻报警）
+DEEPSEEK_API_KEY = os.getenv("DEEPSEEK_API_KEY")
+
 client = OpenAI(
-    api_key="sk-69d3c258f03a4ae99d8bea3fc8eeda7a",   # <--- 拜托，一定要换成你从DeepSeek官网复制的那一长串
+    api_key=DEEPSEEK_API_KEY,
     base_url="https://api.deepseek.com"
 )
 
