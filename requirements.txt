@@ -1,16 +1,20 @@
 # ===== PDF 文档问答系统 - 依赖清单 =====
-# 生成依据：扫描 streamlit_app.py / st_app.py / simple_ai.py 中的 import
 
-# Streamlit 前端框架（streamlit_app, st_app）
+wheel
+
+# Pillow 显式指定版本，确保有预编译 wheel
+pillow==10.4.0
+
+# Streamlit 前端框架
 streamlit==1.32.2
 
-# 调用 DeepSeek API（streamlit_app, st_app, simple_ai）
+# 调用 DeepSeek API
 openai==1.14.3
 
-# PDF 文本提取（streamlit_app）
+# PDF 文本提取
 pdfplumber==0.10.3
 
-# 向量数据库，存储文档片段（streamlit_app）
+# 向量数据库，存储文档片段
 chromadb==0.4.24
 
 # Chroma 默认嵌入模型 all-MiniLM-L6-v2 的运行依赖
