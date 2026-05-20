@@ -2,12 +2,12 @@ FROM python:3.12-slim
 
 WORKDIR /app
 
-# 安装依赖
+# 安装依赖（GitHub Actions 在美国，用 PyPI 官方源更快）
 COPY requirements.txt .
-RUN pip install -r requirements.txt -i https://pypi.tuna.tsinghua.edu.cn/simple
+RUN pip install --no-cache-dir -r requirements.txt
 
-# 预下载 Chroma 默认使用的文本嵌入模型（固化到镜像）
-RUN python -c "from chromadb.utils import embedding_functions; embedding_functions.DefaultEmbeddingFunction()"
+# 预下载嵌入模型
+RUN python -c "from chromadb.utils import embedding_functions; embedding_functions.DefaultEmbeddingFunction()" 2>/dev/null || true
 
 # 复制应用代码
 COPY streamlit_app.py .
