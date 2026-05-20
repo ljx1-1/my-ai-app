@@ -7,19 +7,8 @@ COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
 # 预下载 Chroma 嵌入模型（79MB，运行时下载太慢，固化到镜像）
-RUN mkdir -p /root/.cache/chroma/onnx_models/all-MiniLM-L6-v2 && \
-    python -c "
-import urllib.request, tarfile, os
-url = 'https://chroma-onnx-models.s3.amazonaws.com/all-MiniLM-L6-v2/onnx.tar.gz'
-dest = '/root/.cache/chroma/onnx_models/all-MiniLM-L6-v2/onnx.tar.gz'
-print(f'Downloading model from {url}...')
-urllib.request.urlretrieve(url, dest)
-print(f'Downloaded {os.path.getsize(dest)} bytes')
-# Extract and verify
-with tarfile.open(dest, 'r:gz') as tar:
-    tar.extractall(path='/root/.cache/chroma/onnx_models/all-MiniLM-L6-v2/')
-print('Model extracted successfully')
-"
+COPY download_model.py /tmp/
+RUN python /tmp/download_model.py && rm /tmp/download_model.py
 
 # 复制应用代码
 COPY streamlit_app.py .
