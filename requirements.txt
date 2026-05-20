@@ -1,19 +1,5 @@
-# ===== PDF 文档问答系统 - 依赖清单 =====
-
-# Streamlit 前端框架
-streamlit==1.44.1
-
-# 调用 DeepSeek API
-openai==1.14.3
-
-# PDF 文本提取（纯 Python，无需编译，不依赖 Pillow）
-pypdf==5.4.0
-
-# 向量数据库，存储文档片段
-chromadb==0.4.24
-
-# 固定 NumPy 1.x，chromadb 0.4.x 不兼容 NumPy 2.0
-numpy==1.26.4
-
-# Chroma 默认嵌入模型 all-MiniLM-L6-v2 的运行依赖
-sentence-transformers==2.5.1
+streamlit
+openai
+pypdf
+chromadb
+numpy<2
